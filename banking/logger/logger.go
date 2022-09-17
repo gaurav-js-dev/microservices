@@ -13,6 +13,7 @@ func init() {
 	config := zap.NewProductionConfig()
 	encoderConfig := zap.NewProductionEncoderConfig()
 	encoderConfig.TimeKey = "timestamp"
+	// setting time format to standard iso
 	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	encoderConfig.StacktraceKey = ""
 	config.EncoderConfig = encoderConfig
@@ -22,4 +23,16 @@ func init() {
 		panic(err)
 	}
 
+}
+
+func Info(message string, fields ...zap.Field) {
+	log.Info(message, fields...)
+}
+
+func Debug(message string, fields ...zap.Field) {
+	log.Debug(message, fields...)
+}
+
+func Error(message string, fields ...zap.Field) {
+	log.Error(message, fields...)
 }
