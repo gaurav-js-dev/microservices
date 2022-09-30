@@ -2,9 +2,6 @@ package domain
 
 import (
 	"database/sql"
-	"fmt"
-	"os"
-	"time"
 
 	"github.com/gaurav-js-dev/microservices/banking/errs"
 	"github.com/gaurav-js-dev/microservices/banking/logger"
@@ -51,19 +48,6 @@ func (d CustomerRepositoryDb) ById(id string) (*Customer, *errs.AppError) {
 	return &c, nil
 }
 
-func NewCustomerRepositoryDb() CustomerRepositoryDb {
-	dbUser := os.Getenv("MYSQL_ROOT_USERNAME")
-	dbPasswd := os.Getenv("MYSQL_ROOT_PASSWORD")
-	dbAddr := os.Getenv("MYSQL_HOST")
-	dbName := os.Getenv("MYSQL_DB_NAME")
-	dbPort := os.Getenv("MYSQL_PORT")
-	dataSource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPasswd, dbAddr, dbPort, dbName)
-	client, err := sqlx.Open("mysql", dataSource)
-	if err != nil {
-		panic(err)
-	}
-	client.SetConnMaxLifetime(time.Minute * 3)
-	client.SetMaxOpenConns(10)
-	client.SetMaxIdleConns(10)
-	return CustomerRepositoryDb{client}
+func NewCustomerRepositoryDb(dbClient *sqlx.DB) CustomerRepositoryDb {
+	return CustomerRepositoryDb{dbClient}
 }
