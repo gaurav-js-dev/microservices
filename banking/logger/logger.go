@@ -25,6 +25,10 @@ func init() {
 
 }
 
+func Fatal(message string, fields ...zap.Field) {
+	log.Fatal(message, fields...)
+}
+
 func Info(message string, fields ...zap.Field) {
 	log.Info(message, fields...)
 }

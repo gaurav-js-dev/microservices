@@ -2,6 +2,8 @@ package domain
 
 import (
 	"database/sql"
+	"fmt"
+	"os"
 	"time"
 
 	"github.com/gaurav-js-dev/microservices/banking/errs"
@@ -50,7 +52,13 @@ func (d CustomerRepositoryDb) ById(id string) (*Customer, *errs.AppError) {
 }
 
 func NewCustomerRepositoryDb() CustomerRepositoryDb {
-	client, err := sqlx.Open("mysql", "root:root@tcp(localhost:3306)/banking")
+	dbUser := os.Getenv("MYSQL_ROOT_USERNAME")
+	dbPasswd := os.Getenv("MYSQL_ROOT_PASSWORD")
+	dbAddr := os.Getenv("MYSQL_HOST")
+	dbName := os.Getenv("MYSQL_DB_NAME")
+	dbPort := os.Getenv("MYSQL_PORT")
+	dataSource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPasswd, dbAddr, dbPort, dbName)
+	client, err := sqlx.Open("mysql", dataSource)
 	if err != nil {
 		panic(err)
 	}
