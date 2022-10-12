@@ -1,4 +1,4 @@
-module github.com/gaurav-js-dev/microservices/banking
+module github.com/gaurav-js-dev/microservices
 
 go 1.19
 
