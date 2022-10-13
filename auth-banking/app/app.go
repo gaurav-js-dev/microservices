@@ -7,6 +7,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/gaurav-js-dev/microservices/auth-banking/domain"
+	"github.com/gaurav-js-dev/microservices/auth-banking/service"
 	"github.com/gaurav-js-dev/microservices/banking/logger"
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
