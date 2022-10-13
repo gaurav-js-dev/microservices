@@ -10,10 +10,10 @@ import (
 	"github.com/gaurav-js-dev/microservices/auth-banking/domain"
 	"github.com/gaurav-js-dev/microservices/auth-banking/service"
 	"github.com/gaurav-js-dev/microservices/banking/logger"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
-
-	"github.com/gorilla/mux"
 )
 
 func envCheck() {
@@ -53,7 +53,7 @@ func Start() {
 
 	// Starting Server
 	address := os.Getenv("SERVER_ADDRESS")
-	port := os.Getenv("SERVER_PORT")
+	port := os.Getenv("SERVER_PORT_AUTH")
 	logger.Info(fmt.Sprintf("Starting server on %s:%s ...", address, port))
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), router))
 
