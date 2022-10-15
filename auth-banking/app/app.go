@@ -9,7 +9,7 @@ import (
 
 	"github.com/gaurav-js-dev/microservices/auth-banking/domain"
 	"github.com/gaurav-js-dev/microservices/auth-banking/service"
-	"github.com/gaurav-js-dev/microservices/banking/logger"
+	"github.com/gaurav-js-dev/microservices/library/logger"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"

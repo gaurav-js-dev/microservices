@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/gaurav-js-dev/microservices/banking/logger"
+	"github.com/gaurav-js-dev/microservices/library/logger"
 )
 
 type AuthRepository interface {

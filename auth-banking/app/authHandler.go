@@ -6,7 +6,7 @@ import (
 
 	"github.com/gaurav-js-dev/microservices/auth-banking/dto"
 	"github.com/gaurav-js-dev/microservices/auth-banking/service"
-	"github.com/gaurav-js-dev/microservices/banking/logger"
+	"github.com/gaurav-js-dev/microservices/library/logger"
 )
 
 type AuthHandler struct {

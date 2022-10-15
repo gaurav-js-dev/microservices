@@ -3,7 +3,7 @@ package dto
 import (
 	"strings"
 
-	"github.com/gaurav-js-dev/microservices/banking/errs"
+	"github.com/gaurav-js-dev/microservices/library/errs"
 )
 
 type NewAccountRequest struct {

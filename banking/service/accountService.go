@@ -5,7 +5,7 @@ import (
 
 	"github.com/gaurav-js-dev/microservices/banking/domain"
 	"github.com/gaurav-js-dev/microservices/banking/dto"
-	"github.com/gaurav-js-dev/microservices/banking/errs"
+	"github.com/gaurav-js-dev/microservices/library/errs"
 )
 
 type AccountService interface {

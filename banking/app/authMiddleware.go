@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gaurav-js-dev/microservices/banking/domain"
-	"github.com/gaurav-js-dev/microservices/banking/errs"
+	"github.com/gaurav-js-dev/microservices/library/errs"
 	"github.com/gorilla/mux"
 )
 

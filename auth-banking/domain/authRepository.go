@@ -3,8 +3,8 @@ package domain
 import (
 	"database/sql"
 
-	"github.com/gaurav-js-dev/microservices/banking/errs"
-	"github.com/gaurav-js-dev/microservices/banking/logger"
+	"github.com/gaurav-js-dev/microservices/library/errs"
+	"github.com/gaurav-js-dev/microservices/library/logger"
 	"github.com/jmoiron/sqlx"
 )
 
