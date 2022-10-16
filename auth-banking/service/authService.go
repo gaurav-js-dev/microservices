@@ -4,10 +4,10 @@ import (
 	"fmt"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gaurav-js-dev/go-banking-lib/errs"
+	"github.com/gaurav-js-dev/go-banking-lib/logger"
 	"github.com/gaurav-js-dev/microservices/auth-banking/domain"
 	"github.com/gaurav-js-dev/microservices/auth-banking/dto"
-	"github.com/gaurav-js-dev/microservices/library/errs"
-	"github.com/gaurav-js-dev/microservices/library/logger"
 )
 
 type AuthService interface {

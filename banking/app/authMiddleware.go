@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/gaurav-js-dev/go-banking-lib/errs"
 	"github.com/gaurav-js-dev/microservices/banking/domain"
-	"github.com/gaurav-js-dev/microservices/library/errs"
 	"github.com/gorilla/mux"
 )
 

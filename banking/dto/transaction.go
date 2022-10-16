@@ -1,6 +1,6 @@
 package dto
 
-import "github.com/gaurav-js-dev/microservices/library/errs"
+import "github.com/gaurav-js-dev/go-banking-lib/errs"
 
 const WITHDRAWAL = "withdrawal"
 const DEPOSIT = "deposit"

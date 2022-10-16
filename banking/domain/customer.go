@@ -1,8 +1,8 @@
 package domain
 
 import (
+	"github.com/gaurav-js-dev/go-banking-lib/errs"
 	"github.com/gaurav-js-dev/microservices/banking/dto"
-	"github.com/gaurav-js-dev/microservices/library/errs"
 )
 
 type Customer struct {

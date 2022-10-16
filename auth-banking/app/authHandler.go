@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/gaurav-js-dev/go-banking-lib/logger"
 	"github.com/gaurav-js-dev/microservices/auth-banking/dto"
 	"github.com/gaurav-js-dev/microservices/auth-banking/service"
-	"github.com/gaurav-js-dev/microservices/library/logger"
 )
 
 type AuthHandler struct {
