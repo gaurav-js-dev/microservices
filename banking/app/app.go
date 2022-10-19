@@ -16,28 +16,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func envCheck() {
+func Start() {
 	err := godotenv.Load(".env")
 	if err != nil {
 		logger.Error("Cannot load env file")
 	}
-	envProps := []string{
-		"MYSQL_HOST",
-		"MYSQL_PORT",
-		"MYSQL_ROOT_USERNAME",
-		"MYSQL_ROOT_PASSWORD",
-		"MYSQL_DB_NAME",
-		"SERVER_ADDRESS",
-	}
-	for _, k := range envProps {
-		if os.Getenv(k) == "" {
-			logger.Fatal(fmt.Sprintf("Environment variable %s not defined. Terminating application...", k))
-		}
-	}
-}
-
-func Start() {
-	envCheck()
 
 	router := mux.NewRouter()
 
@@ -74,7 +57,7 @@ func Start() {
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")
 	logger.Info(fmt.Sprintf("Starting server on %s:%s ...", address, port))
-	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), router))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), router))
 
 }
 func getDbClient() *sqlx.DB {
@@ -82,9 +65,9 @@ func getDbClient() *sqlx.DB {
 	dbPasswd := os.Getenv("MYSQL_ROOT_PASSWORD")
 	dbAddr := os.Getenv("MYSQL_HOST")
 	dbName := os.Getenv("MYSQL_DB_NAME")
-	dbPort := os.Getenv("MYSQL_PORT")
 
-	dataSource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPasswd, dbAddr, dbPort, dbName)
+	dataSource := fmt.Sprintf("%s:%s@tcp(%s)/%s", dbUser, dbPasswd, dbAddr, dbName)
+
 	client, err := sqlx.Open("mysql", dataSource)
 	if err != nil {
 		panic(err)

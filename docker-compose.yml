@@ -5,14 +5,49 @@ services:
     image: mysql
     build: ./mysql
     ports:
-      - "127.0.0.1:3306:3306"
+      - 3306:3306
     restart: always
     hostname: mysql
     environment:
       MYSQL_ROOT_USERNAME: ${MYSQL_ROOT_USERNAME}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_HOST: "${MYSQL_HOST}:${MYSQL_PORT}"
     container_name: mysql
     volumes:
       - ${DATA_DIR}/mysql:/var/lib/mysql
     command: --sql_mode=""
+
+  auth-banking-service:
+    build:
+      context: ./
+      dockerfile: auth-banking/Dockerfile
+    ports:
+      - 3001:3001
+    container_name: auth-banking-service
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: "mysql:3306"
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_USERNAME: ${MYSQL_ROOT_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DB_NAME: ${MYSQL_DB_NAME}
+      SERVER_ADDRESS: ${SERVER_ADDRESS}
+      SERVER_PORT_AUTH: ${SERVER_PORT_AUTH}
+
+  banking-service:
+    build:
+      context: ./
+      dockerfile: banking/Dockerfile
+    ports:
+      - 3000:3000
+    container_name: banking-service
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: "mysql:3306"
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_USERNAME: ${MYSQL_ROOT_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DB_NAME: ${MYSQL_DB_NAME}
+      SERVER_ADDRESS: ${SERVER_ADDRESS}
+      SERVER_PORT: ${SERVER_PORT}
