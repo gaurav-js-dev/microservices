@@ -2,6 +2,7 @@ package domain
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 
@@ -21,12 +22,17 @@ func (r RemoteAuthRepository) IsAuthorized(token string, routeName string, vars 
 
 	response, err := http.Get(u)
 
-	m := map[string]bool{}
-	if err = json.NewDecoder(response.Body).Decode(&m); err != nil {
-		logger.Error("Error while decoding response from auth server:" + err.Error())
+	if err != nil {
+		fmt.Println("Error while sending..." + err.Error())
 		return false
+	} else {
+		m := map[string]bool{}
+		if err = json.NewDecoder(response.Body).Decode(&m); err != nil {
+			logger.Error("Error while decoding response from auth server:" + err.Error())
+			return false
+		}
+		return m["isAuthorized"]
 	}
-	return m["isAuthorized"]
 }
 
 /*
