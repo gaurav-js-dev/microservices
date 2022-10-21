@@ -11,7 +11,7 @@ services:
     environment:
       MYSQL_ROOT_USERNAME: ${MYSQL_ROOT_USERNAME}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    container_name: mysql
+    container_name: mysql-banking
     volumes:
       - ${DATA_DIR}/mysql:/var/lib/mysql
     command: --sql_mode=""
@@ -42,7 +42,7 @@ services:
       - 3000:3000
     container_name: banking-service
     depends_on:
-      - mysql
+      - auth-banking-service
     environment:
       MYSQL_HOST: "mysql:3306"
       MYSQL_PORT: 3306
