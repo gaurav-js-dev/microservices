@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "8263fe4e-4f77-47b4-91cb-3e242f9d3dde",
 		"name": "Banking Microservice App",
+		"description": "This collection contains two Microservices\n\n1. **Banking :** Open new account for customer  \n    Making a Deposit or Withdrawal Transaction in the accounts.\n2. **Auth-Banking :** This service is use to apply security & authorization to above banking application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "18769640"
 	},
@@ -10,42 +11,13 @@
 			"name": "Auth-Banking",
 			"item": [
 				{
-					"name": "User Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"2001\",\r\n    \"password\": \"abc123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3001/auth/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Admin Login",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"2001\",\r\n    \"password\": \"abc123\"\r\n}",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"abc123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -63,142 +35,306 @@
 								"auth",
 								"login"
 							]
-						}
+						},
+						"description": "An Admin have below rights :\n\n1. View all customers.\n2. View a single customer details by ID.\n3. Create new account for a customer.\n4. Making a deposit or withdrawal transaction for a customer's account."
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"2000\",\r\n    \"password\": \"abc123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "User role can do :\n\n- View his own customer details.\n    \n\n- Make a withdrawal or deposit transaction for his own existing account."
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This collection is for generating access tokens before making a request from the main banking application to perform any action. User & Admin login API will generate an access token which can be passed to **Authorization Bearer Token** while making banking request**.**"
 		},
 		{
 			"name": "Banking",
 			"item": [
 				{
-					"name": "Fetch Customer List",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6IiIsImFjY291bnRzIjpudWxsLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNjY2MTcwMTY0fQ.6bVLGb8bisRW-689WQX-ZeUyDDANeGiBVlqGVAkYZag",
-									"type": "string"
+					"name": "New Account",
+					"item": [
+						{
+							"name": "Saving",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account_type\" :\"saving\",\r\n    \"amount\":5000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/customers/2001/account",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers",
+										"2001",
+										"account"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"abc123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Checking",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6IiIsImFjY291bnRzIjpudWxsLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNjY2NTE3Nzk5fQ.T0zYjHsWD08_G2WiOlw4XP4HR8vw-bPQJTYoVi6Mgus",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account_type\" :\"checking\",\r\n    \"amount\":5000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/customers/2000/account",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers",
+										"2000",
+										"account"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"customers"
-							]
-						},
-						"description": "This API is for viewing all the customers list which can be only viewed by admin users"
-					},
-					"response": []
+							},
+							"response": []
+						}
+					],
+					"description": "A new account can be opening for an existing customer though below APIs. Only admins can open a new account for any user.\n\n[http://localhost:3000/customers/{customer_id}/account](https://desktop.postman.com/?desktopVersion=10.0.1&userId=18769640&teamId=0)\n\n- New account can be of type **saving** or **checking** only.\n- Minimum deposit of 5000 is necessary to open a new account otherwise error will be returned."
 				},
 				{
-					"name": "Fetch Customer List Copy",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6IiIsImFjY291bnRzIjpudWxsLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNjY2MTcwMTY0fQ.6bVLGb8bisRW-689WQX-ZeUyDDANeGiBVlqGVAkYZag",
-									"type": "string"
-								}
-							]
+					"name": "Transaction",
+					"item": [
+						{
+							"name": "Deposit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"transaction_type\":\"deposit\",\r\n    \"amount\":1000 \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/customers/2000/account/95470",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers",
+										"2000",
+										"account",
+										"95470"
+									]
+								},
+								"description": "This API is for making a new deposit transaction to an existing account in below format\n\n[http://localhost:3000/customers/{customer_id}/account/{account_id}](http://localhost:3000/customers/{customer_id}/account/{account_id})"
+							},
+							"response": []
 						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"abc123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"customers"
-							]
-						},
-						"description": "This API is for viewing all the customers list which can be only viewed by admin users"
-					},
-					"response": []
+						{
+							"name": "Withdrawal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6IjIwMDAiLCJhY2NvdW50cyI6WyI5NTQ3MCJdLCJ1c2VybmFtZSI6IjIwMDAiLCJyb2xlIjoidXNlciIsImV4cCI6MTY2NjUxNjA4OH0.8hH6Loi7uqD8N1Eib0ochvvV2yJZLk_bMtHC6waJbGM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"transaction_type\":\"withdrawal\",\r\n    \"amount\":1000 \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/customers/2000/account/95470",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers",
+										"2000",
+										"account",
+										"95470"
+									]
+								},
+								"description": "This API is for making a new withdrawal transaction to an existing account in below format\n\n[http://localhost:3000/customers/{customer_id}/account/{account_id}](http://localhost:3000/customers/{customer_id}/account/{account_id})"
+							},
+							"response": []
+						}
+					],
+					"description": "This API is for making a new transaction to an existing account in below format\n\n[http://localhost:3000/customers/{customer_id}/account/{account_id}](http://localhost:3000/customers/{customer_id}/account/{account_id})\n\n- Transaction type can be deposit or withdrawal only.\n- Successful transaction returns updated balance with transaction id in response.\n- Amount cannot be negative and withdrawal amount should be available as balance in account."
 				},
 				{
-					"name": "Fetch Customer By ID",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6IiIsImFjY291bnRzIjpudWxsLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNjY2MTcwMTY0fQ.6bVLGb8bisRW-689WQX-ZeUyDDANeGiBVlqGVAkYZag",
-									"type": "string"
-								}
-							]
+					"name": "View Customer",
+					"item": [
+						{
+							"name": "Fetch Customer By ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/customers/2001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers",
+										"2001"
+									]
+								},
+								"description": "This API is for viewing a customer by ID.\n\n[http://localhost:3000/customers/{customer_id}](http://localhost:3000/customers/{customer_id})\n\n- An admin has right to view any user.\n- User can only view his own account. A user cannot access other user details.\n- Authorization Bearer Token should be passed before making the request."
+							},
+							"response": []
 						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"abc123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"customers"
-							]
-						},
-						"description": "This API is for viewing a customer by ID."
-					},
-					"response": []
+						{
+							"name": "Fetch Customer List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6IiIsImFjY291bnRzIjpudWxsLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNjY2MTcwMTY0fQ.6bVLGb8bisRW-689WQX-ZeUyDDANeGiBVlqGVAkYZag",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers"
+									]
+								},
+								"description": "This API is for viewing all the customers list which can be only viewed by admin users only. Request should contain a valid bearer token."
+							},
+							"response": []
+						}
+					],
+					"description": "This collection is for viewing customer details."
 				}
-			]
+			],
+			"description": "#### Banking service is responsible for below functionality provided via API endpoints.\n\n- Open new account for customer\n- Making a Deposit or Withdrawal Transaction in the accounts.\n- View all the accounts or a single account detail."
 		}
 	]
 }

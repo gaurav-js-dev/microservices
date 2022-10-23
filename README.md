@@ -27,7 +27,11 @@ This creates the following docker containers
 - auth-banking-service
 - banking-service
 
-Once the containers are up and running, you can import postman collection file & start using the postman and refer to collection documentation to know more about API usage.
+Once the containers are up and running, you can import postman collection and environment file then start using the postman and refer to collection documentation to know more about API usage.
+
+#### API Usage
+
+Use of each and every API is mentioned in a dedicated documentation page visit [API Documentation Link](https://documenter.getpostman.com/view/18769640/2s84DvpyXY) visit now.
 
 #### Technical learning points along with libraries used
 
